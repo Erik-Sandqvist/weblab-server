@@ -9,6 +9,42 @@
 </head>
 <body>
     <h1>Products</h1>
-    <div id="products-container"></div>
+    <div class="layout">
+        <div id="products-container" class="products"></div>
+    <div class="add-product-form">
+        <h2>Add New Product</h2>
+        <form id="product-form">
+            <div>
+                <label for="product-name">Name:</label>
+                <input type="text" id="product-name" name="name" required>
+            </div>
+            <div>
+                <label for="product-price">Price:</label>
+                <input type="number" id="product-price" name="price" min="0" step="0.01" required>
+            </div>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+    
+    <div class="add-product-form">
+        <h2>Update Product</h2>
+        <form id="update-form">
+            <div>
+                <label for="update-id">Product ID:</label>
+                <input type="number" id="update-id" name="id" min="1" required>
+            </div>
+            <div>
+                <label for="update-name">Name:</label>
+                <input type="text" id="update-name" name="name">
+            </div>
+            <div>
+                <label for="update-price">Price:</label>
+                <input type="number" id="update-price" name="price" min="0" step="0.01">
+            </div>
+            <button type="submit">Update Product</button>
+        </form>
+    </div>
+
+    </div>
 </body>
 </html>

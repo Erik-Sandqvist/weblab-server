@@ -1,0 +1,26 @@
+body{
+    background: #05354a;
+background: linear-gradient(90deg, rgba(5, 53, 74, 1) 0%, rgba(3, 148, 161, 1) 89%);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+.layout {
+    display: flex;
+    align-items: flex-start;
+}
+.products {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 400px;
+    margin: 50px auto;
+}
+.add-product-form {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 50px auto;
+}
