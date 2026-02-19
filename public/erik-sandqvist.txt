@@ -1,0 +1,254 @@
+3p2 Assignment 1
+
+(Server Code)
+
+app.post("/api/products", (req, res) => {
+const { name, price } = req.body;
+if (!name || price === undefined) {
+return res.status(400).json({ error: "Name and price are required" });
+}
+const newProduct = {
+
+id: products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1,
+name,
+price
+};
+products.push(newProduct);
+saveProducts();
+res.status(201).json({
+message: "Product created successfully",
+product: newProduct
+});
+});
+
+(Client Code)
+
+async function addProduct(name, price) {
+    try {
+        const response = await fetch('/api/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, price })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to add product');
+        }
+        
+        const newProduct = await response.json();
+        console.log('Product added:', newProduct);
+        return newProduct;
+    } catch (error) {
+        console.error('Error adding product:', error);
+        return null;
+    }
+}
+
+3p2 Assignment 2
+
+(Server Code)
+
+app.put("/api/products/:id", (req, res) => {
+const productId = parseInt(req.params.id);
+const { name, price } = req.body;
+const productIndex = products.findIndex(p => p.id === productId);
+if (productIndex === -1) {
+return res.status(404).json({ error: "Product not found" });
+}
+if (name !== undefined) {
+products[productIndex].name = name;
+}
+if (price !== undefined) {
+products[productIndex].price = price;
+}
+saveProducts();
+res.json({
+message: "Product updated successfully",
+product: products[productIndex]
+});
+});
+
+(Client Code)
+
+function fillUpdateForm(id, name, price) {
+    document.getElementById('update-id').value = id;
+    document.getElementById('update-name').value = name;
+    document.getElementById('update-price').value = price;
+}
+
+async function updateProduct(id, name, price) {
+    try {
+        const body = {};
+        if (name !== undefined && typeof name !== "string") {
+        return res.status(400).json({ error: "Name must be a string" });
+     }
+
+        if (price !== undefined && typeof price !== "number") {
+        return res.status(400).json({ error: "Price must be a number" });
+     }
+
+        
+        const response = await fetch(`/api/products/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to update product');
+          }
+
+        
+        const result = await response.json();
+        console.log('Product updated:', result);
+        return result;
+    } catch (error) {
+        console.error('Error updating product:', error);
+        return null;
+    }
+}
+
+
+3p1 Assignment 1
+
+HTML Code:
+<div class="general">
+    <h2>Countries (Shortened)</h2>
+    <ul id="countryList"></ul>
+</div>
+
+Javascript Code:
+const source = 'https://gist.githubusercontent.com/mapoto/515827c73f7f60a14cf2914f0cca16f0/raw/c41bc850bc989cadf6a1caa394ab12fce105d59e/countries.json';
+
+fetch(source)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        const countryList = document.getElementById('countryList');
+        data.slice(0, 6).forEach(country => {
+            const li = document.createElement('li');
+            li.textContent = country.name;
+            countryList.appendChild(li);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+
+    Comment: I sliced the list to only display the first 6 contries so it
+    would't take so much space
+
+
+    2p2 Assignment 7
+
+    HTML Code:
+
+    <div class="general">
+    <div class="box"></div>
+    </div>
+
+    Javascript Code:
+
+    const box = document.querySelector('.box');
+    box.addEventListener('click', function() {
+    box.classList.toggle('highlight');
+     });
+
+     CSS: 
+
+     .general{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    width: 26%;
+    margin-left: 20px;
+    margin-top: 10px;
+    border: solid blue 2px;
+    border-radius: 6px;
+    padding: 10px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+.highlight{
+    background-color: yellow !important;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+
+2p1  Assignment  9
+
+HTML Code:
+
+<div class="general">
+<div id="container">
+  <p>Hello World</p>
+  <p>My name is Erik</p>
+  <p>I code</p>
+</div>
+</div>
+
+Javascript Code:
+ 
+const container = document.getElementById('container');
+const secondP = container.children[1];
+
+console.log(secondP.textContent);
+
+
+1p2  Assignment 8
+
+let numbers3 = [10, 20, 30, 40];
+let sum = numbers3.reduce((total, num) => total + num, 0);
+console.log(`Sum of [${numbers3}] is: ${sum}`);
+
+1p2  Assignment 7
+
+let fruits2 = ["apple", "banana", "apple", "cherry", "banana", "apple"];
+let fruitCount = fruits2.reduce((acc, fruit) => {
+    acc[fruit] = (acc[fruit] || 0) + 1;
+    return acc;
+}, {});
+
+console.log('Fruit counts:', fruitCount);
+
+1p1  Assignment 10
+
+class Rectangle {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    getArea() {
+        return this.width * this.height;
+    }
+
+    static isSquare(rectangle) {
+        return rectangle.width === rectangle.height;
+    }
+}
+
+// Example usage
+const rect1 = new Rectangle(5, 10);
+console.log(`Rectangle area: ${rect1.getArea()}`);
+console.log(`Is square: ${Rectangle.isSquare(rect1)}`);
+
+const rect2 = new Rectangle(7, 7);
+console.log(`Square area: ${rect2.getArea()}`);
+console.log(`Is square: ${Rectangle.isSquare(rect2)}`);
+
+1p1  Assignment 9
+
+function charFrequency(str) {
+    const frequency = {};
+    for (let char of str) {
+        frequency[char] = (frequency[char] || 0) + 1;
+    }
+    return frequency;
+}
+
+console.log(charFrequency("bananas"));
